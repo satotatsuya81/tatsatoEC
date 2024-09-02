@@ -21,7 +21,7 @@ const CategoryForm: React.FC = () => {
   }, [id]);
 
   const fetchCategory = async () => {
-    const response = await axios.get(`http://localhost/categories/${id}`);
+    const response = await axios.get(`http://10.0.2.2:80/categories/${id}`);
     setFormData(response.data);
   };
 
@@ -32,9 +32,9 @@ const CategoryForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (id) {
-      await axios.patch(`http://localhost/categories/${id}`, formData);
+      await axios.patch(`http://10.0.2.2:80/categories/${id}`, formData);
     } else {
-      await axios.post('http://localhost/categories', formData);
+      await axios.post('http://10.0.2.2:80/categories', formData);
     }
     navigate('/categories');
   };

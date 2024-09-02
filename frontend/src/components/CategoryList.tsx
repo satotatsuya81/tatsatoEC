@@ -16,12 +16,12 @@ const CategoryList: React.FC = () => {
   }, []);
 
   const fetchCategories = async () => {
-    const response = await axios.get<Category[]>('http://localhost/categories');
+    const response = await axios.get<Category[]>('http://10.0.2.2:80/categories');
     setCategories(response.data);
   };
 
   const deleteCategory = async (id: number) => {
-    await axios.delete(`http://localhost/categories/${id}`);
+    await axios.delete(`http://10.0.2.2:80/categories/${id}`);
     fetchCategories();
   };
 

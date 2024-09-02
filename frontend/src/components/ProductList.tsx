@@ -23,12 +23,12 @@ const ProductList: React.FC = () => {
   }, []);
 
   const fetchProducts = async () => {
-    const response = await axios.get<Product[]>('http://localhost/products');
+    const response = await axios.get<Product[]>('http://10.0.2.2:80/products');
     setProducts(response.data);
   };
 
   const deleteProduct = async (id: number) => {
-    await axios.delete(`http://localhost/products/${id}`);
+    await axios.delete(`http://10.0.2.2:80/products/${id}`);
     fetchProducts();
   };
 

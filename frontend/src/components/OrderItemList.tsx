@@ -34,7 +34,7 @@ const OrderItemList: React.FC = () => {
   }, [id]);
 
   const fetchOrder = async () => {
-    const response = await axios.get<Order>(`http://localhost/orders/${id}`);
+    const response = await axios.get<Order>(`http://10.0.2.2:80/orders/${id}`);
     setOrder(response.data);
   };
 

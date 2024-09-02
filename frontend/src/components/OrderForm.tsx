@@ -32,12 +32,12 @@ const OrderForm: React.FC = () => {
   }, [id]);
 
   const fetchUsers = async () => {
-    const response = await axios.get<User[]>('http://localhost/users');
+    const response = await axios.get<User[]>('http://10.0.2.2:80/users');
     setUsers(response.data);
   };
 
   const fetchOrder = async () => {
-    const response = await axios.get(`http://localhost/orders/${id}`);
+    const response = await axios.get(`http://10.0.2.2:80/orders/${id}`);
     setFormData(response.data);
   };
 
@@ -52,9 +52,9 @@ const OrderForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (id) {
-      await axios.patch(`http://localhost/orders/${id}`, formData);
+      await axios.patch(`http://10.0.2.2:80/orders/${id}`, formData);
     } else {
-      await axios.post('http://localhost/orders', formData);
+      await axios.post('http://10.0.2.2:80/orders', formData);
     }
     navigate('/orders');
   };

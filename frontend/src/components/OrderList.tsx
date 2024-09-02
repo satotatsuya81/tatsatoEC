@@ -22,12 +22,12 @@ const OrderList: React.FC = () => {
   }, []);
 
   const fetchOrders = async () => {
-    const response = await axios.get<Order[]>('http://localhost/orders');
+    const response = await axios.get<Order[]>('http://10.0.2.2:80/orders');
     setOrders(response.data);
   };
 
   const deleteOrder = async (id: number) => {
-    await axios.delete(`http://localhost/orders/${id}`);
+    await axios.delete(`http://10.0.2.2:80/orders/${id}`);
     fetchOrders();
   };
 

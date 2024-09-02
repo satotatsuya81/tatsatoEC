@@ -36,12 +36,12 @@ const ProductForm: React.FC = () => {
   }, [id]);
 
   const fetchCategories = async () => {
-    const response = await axios.get<Category[]>('http://localhost/categories');
+    const response = await axios.get<Category[]>('http://10.0.2.2:80/categories');
     setCategories(response.data);
   };
 
   const fetchProduct = async () => {
-    const response = await axios.get(`http://localhost/products/${id}`);
+    const response = await axios.get(`http://10.0.2.2:80/products/${id}`);
     const product = response.data;
     setFormData({
       name: product.name,
@@ -63,9 +63,9 @@ const ProductForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (id) {
-      await axios.patch(`http://localhost/products/${id}`, formData);
+      await axios.patch(`http://10.0.2.2:80/products/${id}`, formData);
     } else {
-      await axios.post('http://localhost/products', formData);
+      await axios.post('http://10.0.2.2:80/products', formData);
     }
     navigate('/products');
   };

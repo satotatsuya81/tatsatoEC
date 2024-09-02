@@ -25,7 +25,7 @@ const UserForm: React.FC = () => {
   }, [id]);
 
   const fetchUser = async () => {
-    const response = await axios.get(`http://localhost/users/${id}`);
+    const response = await axios.get(`http://10.0.2.2:80/users/${id}`);
     setFormData(response.data);
   };
 
@@ -36,9 +36,9 @@ const UserForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (id) {
-      await axios.patch(`http://localhost/users/${id}`, formData);
+      await axios.patch(`http://10.0.2.2:80/users/${id}`, formData);
     } else {
-      await axios.post('http://localhost/users', formData);
+      await axios.post('http://10.0.2.2:80/users', formData);
     }
     navigate('/users');
   };

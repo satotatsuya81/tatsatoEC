@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { FindOneOptions } from 'typeorm';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from '../entities/order.entity';
@@ -12,26 +13,37 @@ export class OrderService {
     private ordersRepository: Repository<Order>,
   ) {}
 
-  create(createOrderDto: CreateOrderDto) {
-    return this.ordersRepository.save(createOrderDto);
+  async create(createOrderDto: CreateOrderDto): Promise<Order> {
+    const newOrder = this.ordersRepository.create(createOrderDto);
+    return this.ordersRepository.save(newOrder);
   }
 
   findAll() {
     return this.ordersRepository.find({ relations: ['user', 'orderItems'] });
   }
 
-  findOne(id: number) {
-    return this.ordersRepository.findOne({
-      where: { id },
+  async findOne(id: number) {
+    const FindOneOptions: FindOneOptions<Order> = {
+      where: { id: id },
       relations: ['user', 'orderItems'],
-    });
+    };
+    const order = await this.ordersRepository.findOne(FindOneOptions);
+    if (!order) {
+      throw new NotFoundException(`Order with id ${id} not found`);
+    }
+    return order;
   }
 
-  update(id: number, updateOrderDto: UpdateOrderDto) {
-    return this.ordersRepository.update(id, updateOrderDto);
+  async update(id: number, updateOrderDto: UpdateOrderDto): Promise<Order> {
+    await this.ordersRepository.update(id, updateOrderDto);
+    const FindOneOptions: FindOneOptions<Order> = {
+      where: { id: id },
+      relations: ['user', 'orderItems'],
+    };
+    return this.ordersRepository.findOne(FindOneOptions);
   }
 
-  remove(id: number) {
-    return this.ordersRepository.delete(id);
+  async remove(id: number): Promise<void> {
+    await this.ordersRepository.delete(id);
   }
 }

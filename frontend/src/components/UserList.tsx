@@ -17,12 +17,12 @@ const UserList: React.FC = () => {
   }, []);
 
   const fetchUsers = async () => {
-    const response = await axios.get<User[]>('http://localhost/users');
+    const response = await axios.get<User[]>('http://10.0.2.2:80/users');
     setUsers(response.data);
   };
 
   const deleteUser = async (id: number) => {
-    await axios.delete(`http://localhost/users/${id}`);
+    await axios.delete(`http://10.0.2.2:80/users/${id}`);
     fetchUsers();
   };
 
